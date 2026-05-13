@@ -44,9 +44,11 @@ For the first public crates.io wave, publish in dependency order:
 3. `use-atomic-mass`
 4. `use-electron-shell`
 5. `use-periodic-table`
+6. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
-published.
+published. The umbrella crate `use-chemistry` should come last after the five
+focused crates are visible on crates.io.
 
 ## Post-initial-release automation
 

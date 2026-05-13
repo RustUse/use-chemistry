@@ -17,6 +17,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "use-chemistry"
+version = "0.1.0"
+dependencies = [
+ "use-atomic-mass",
+ "use-atomic-number",
+ "use-electron-shell",
+ "use-element",
+ "use-periodic-table",
+]
+
+[[package]]
 name = "use-electron-shell"
 version = "0.1.0"
 dependencies = [

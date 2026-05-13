@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "crates/use-chemistry",
     "crates/use-element",
     "crates/use-periodic-table",
     "crates/use-atomic-number",
@@ -19,6 +20,16 @@ repository = "https://github.com/RustUse/use-chemistry"
 rust-version = "1.95.0"
 version = "0.1.0"
 
+[workspace.dependencies]
+use-atomic-mass = { version = "0.1.0", path = "crates/use-atomic-mass" }
+use-atomic-number = { version = "0.1.0", path = "crates/use-atomic-number" }
+use-electron-shell = { version = "0.1.0", path = "crates/use-electron-shell" }
+use-element = { version = "0.1.0", path = "crates/use-element" }
+use-periodic-table = { version = "0.1.0", path = "crates/use-periodic-table" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
 [workspace.metadata.rustuse.release]
 publish = false
 versioning = "lockstep-0.x"
@@ -28,4 +39,5 @@ first-publish-candidates = [
     "use-atomic-number",
     "use-atomic-mass",
     "use-electron-shell",
+    "use-chemistry",
 ]

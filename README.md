@@ -8,11 +8,28 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 
 ## Workspace crates
 
+- `use-chemistry`: umbrella crate that reexports the full workspace with a shared prelude
 - `use-element`: basic chemical element primitives and lookup helpers
 - `use-periodic-table`: periodic-table lookup and conservative classification helpers
 - `use-atomic-number`: atomic-number validation and neutral-atom helpers
 - `use-atomic-mass`: average atomic mass and molar mass helpers for elements
 - `use-electron-shell`: simple shell distribution helpers for introductory chemistry use cases
+
+## Umbrella crate
+
+If you want a single dependency for the full workspace, use `use-chemistry`. It reexports the
+focused crates and provides a `prelude` with the most common chemistry helpers.
+
+```rust
+use use_chemistry::prelude::{atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol};
+
+let oxygen = element_by_symbol("O").unwrap();
+
+assert_eq!(oxygen.atomic_number, 8);
+assert_eq!(atomic_number_from_symbol("Na"), Some(11));
+assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
+assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
+```
 
 ## Examples
 
