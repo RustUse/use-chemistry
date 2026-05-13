@@ -11,8 +11,10 @@ resolver = "2"
 [workspace.package]
 authors = ["RustUse Contributors"]
 edition = "2024"
+homepage = "https://rustuse.org"
 license = "MIT OR Apache-2.0"
 publish = false
+readme = "README.md"
 repository = "https://github.com/RustUse/use-chemistry"
 rust-version = "1.95.0"
 version = "0.1.0"

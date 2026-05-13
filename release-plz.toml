@@ -1,0 +1,57 @@
+[workspace]
+release = false
+release_always = false
+changelog_update = false
+pr_labels = ["release"]
+max_analyze_commits = 2000
+
+[[package]]
+name = "use-element"
+release = true
+version_group = "rustuse-chemistry"
+changelog_update = true
+changelog_path = "./CHANGELOG.md"
+changelog_include = [
+    "use-periodic-table",
+    "use-atomic-number",
+    "use-atomic-mass",
+    "use-electron-shell",
+]
+
+[[package]]
+name = "use-periodic-table"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-atomic-number"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-atomic-mass"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-electron-shell"
+release = true
+version_group = "rustuse-chemistry"
+
+[changelog]
+header = """# Changelog
+
+## Unreleased
+"""
+protect_breaking_commits = true
+sort_commits = "oldest"
+commit_parsers = [
+  { message = "^feat(?:\\([^)]+\\))?!?: .+", group = "Added" },
+  { message = "^fix(?:\\([^)]+\\))?!?: .+", group = "Fixed" },
+  { message = "^security(?:\\([^)]+\\))?!?: .+", group = "Security" },
+  { message = "^(?:refactor|perf|change)(?:\\([^)]+\\))?!?: .+", group = "Changed" },
+  { message = "^docs(?:\\([^)]+\\))?!?: .+", group = "Documentation" },
+  { message = "^(?:build|ci|chore|deps|test)(?:\\([^)]+\\))?!?: .+", group = "Tooling" },
+  { footer = "^changelog: ?ignore$", skip = true },
+  { message = "^.*", group = "Changed" },
+]

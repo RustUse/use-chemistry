@@ -1,0 +1,55 @@
+name: SBOM
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    generate:
+        name: Generate CycloneDX SBOM (${{ matrix.crate }})
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                crate:
+                    - use-element
+                    - use-periodic-table
+                    - use-atomic-number
+                    - use-atomic-mass
+                    - use-electron-shell
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v4
+
+            - name: Install stable Rust toolchain
+              uses: actions-rust-lang/setup-rust-toolchain@v1
+              with:
+                  rustflags: ""
+                  cache-workspaces: |
+                      . -> target
+
+            - name: Install cargo-cyclonedx
+              run: cargo install cargo-cyclonedx --locked
+
+            - name: Generate CycloneDX JSON SBOM
+              shell: bash
+              run: |
+                  cargo cyclonedx \
+                    --manifest-path crates/${{ matrix.crate }}/Cargo.toml \
+                    --all-features \
+                    --format json \
+                    --spec-version 1.5 \
+                    --override-filename sbom.cyclonedx
+                  cp crates/${{ matrix.crate }}/sbom.cyclonedx.json ${{ matrix.crate }}-sbom.cyclonedx.json
+
+            - name: Upload SBOM artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: sbom-cyclonedx-${{ matrix.crate }}
+                  path: ${{ matrix.crate }}-sbom.cyclonedx.json
+                  if-no-files-found: error
