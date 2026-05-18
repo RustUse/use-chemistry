@@ -52,7 +52,7 @@ pub fn valence_electrons_main_group(atomic_number: u8) -> Option<u8> {
             } else {
                 Some(group - 10)
             }
-        }
+        },
         _ => None,
     })
 }

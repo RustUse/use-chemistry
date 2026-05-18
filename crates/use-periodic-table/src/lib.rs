@@ -3,7 +3,7 @@
 
 //! Periodic-table lookup and conservative classification helpers.
 
-pub use use_element::{all_elements, Element};
+pub use use_element::{Element, all_elements};
 
 use use_element::element_by_atomic_number;
 
@@ -112,23 +112,33 @@ mod tests {
     #[test]
     fn exposes_expected_period_and_group_filters() {
         assert_eq!(period_elements(2).len(), 8);
-        assert!(period_elements(2)
-            .iter()
-            .any(|element| element.symbol == "C"));
-        assert!(period_elements(2)
-            .iter()
-            .any(|element| element.symbol == "O"));
+        assert!(
+            period_elements(2)
+                .iter()
+                .any(|element| element.symbol == "C")
+        );
+        assert!(
+            period_elements(2)
+                .iter()
+                .any(|element| element.symbol == "O")
+        );
 
         assert_eq!(group_elements(18).len(), 7);
-        assert!(group_elements(18)
-            .iter()
-            .any(|element| element.symbol == "He"));
-        assert!(group_elements(18)
-            .iter()
-            .any(|element| element.symbol == "Ne"));
-        assert!(group_elements(18)
-            .iter()
-            .any(|element| element.symbol == "Og"));
+        assert!(
+            group_elements(18)
+                .iter()
+                .any(|element| element.symbol == "He")
+        );
+        assert!(
+            group_elements(18)
+                .iter()
+                .any(|element| element.symbol == "Ne")
+        );
+        assert!(
+            group_elements(18)
+                .iter()
+                .any(|element| element.symbol == "Og")
+        );
 
         assert!(group_elements(0).is_empty());
         assert!(period_elements(0).is_empty());
