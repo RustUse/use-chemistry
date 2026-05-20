@@ -14,6 +14,7 @@ name: Publish
           - use-isotope
           - use-chemical-formula
           - use-stoichiometry
+          - use-reaction
           - use-bond
           - use-oxidation-state
           - use-ion
@@ -113,7 +114,7 @@ jobs:
 
           selected="${{ steps.inputs.outputs.crate }}"
           dry_run="${{ steps.inputs.outputs.dry_run }}"
-          crates=(use-element use-isotope use-chemical-formula use-stoichiometry use-bond use-oxidation-state use-ion use-compound use-molecule use-atomic-number use-atomic-mass use-electron-shell use-periodic-table)
+          crates=(use-element use-isotope use-chemical-formula use-stoichiometry use-reaction use-bond use-oxidation-state use-ion use-compound use-molecule use-atomic-number use-atomic-mass use-electron-shell use-periodic-table)
 
           if [ "$selected" != "all" ]; then
             crates=("$selected")

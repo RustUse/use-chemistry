@@ -1,0 +1,22 @@
+[package]
+name = "use-reaction"
+description = "Chemical reaction representation primitives for RustUse"
+publish = true
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+readme = "README.md"
+homepage = "https://github.com/RustUse/use-chemistry"
+documentation = "https://docs.rs/use-reaction"
+keywords = ["chemistry", "reaction", "equation", "formula", "stoichiometry"]
+categories = ["science", "data-structures"]
+
+[dependencies]
+use-chemical-formula.workspace = true
+use-stoichiometry.workspace = true
+
+[package.metadata.docs.rs]
+all-features = true

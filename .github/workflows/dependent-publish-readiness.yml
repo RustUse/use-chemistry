@@ -1,44 +1,44 @@
 name: Dependent Publish Readiness
 
 "on":
-    workflow_dispatch:
-        inputs:
-            registry-ready:
-                description: Confirm that use-element and use-chemical-formula are live on crates.io for dependent dry runs
-                required: true
-                type: boolean
+  workflow_dispatch:
+    inputs:
+      registry-ready:
+        description: Confirm that use-element and use-chemical-formula are live on crates.io for dependent dry runs
+        required: true
+        type: boolean
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    dependent-release-readiness:
-        if: ${{ inputs.registry-ready }}
-        name: Dependent Crate Publish Dry Run
-        runs-on: ubuntu-latest
-        env:
-            DEPENDENT_CRATES: >-
-                use-isotope use-chemical-formula use-stoichiometry use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
-        steps:
-            - name: Check out repository
-              uses: actions/checkout@v4
+  dependent-release-readiness:
+    if: ${{ inputs.registry-ready }}
+    name: Dependent Crate Publish Dry Run
+    runs-on: ubuntu-latest
+    env:
+      DEPENDENT_CRATES: >-
+        use-isotope use-chemical-formula use-stoichiometry use-reaction use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-            - name: Install stable Rust toolchain
-              uses: actions-rust-lang/setup-rust-toolchain@v1
-              with:
-                  rustflags: ""
-                  cache-workspaces: |
-                      . -> target
+      - name: Install stable Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rustflags: ""
+          cache-workspaces: |
+            . -> target
 
-            - name: Confirm use-element is visible on crates.io
-              run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-element" > /dev/null
+      - name: Confirm use-element is visible on crates.io
+        run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-element" > /dev/null
 
-            - name: Confirm use-chemical-formula is visible on crates.io
-              run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-chemical-formula" > /dev/null
+      - name: Confirm use-chemical-formula is visible on crates.io
+        run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-chemical-formula" > /dev/null
 
-            - name: Dry-run publish dependent crates
-              run: |
-                  for crate in $DEPENDENT_CRATES; do
-                    cargo package --list -p "$crate"
-                    cargo publish --dry-run --allow-dirty -p "$crate"
-                  done
+      - name: Dry-run publish dependent crates
+        run: |
+          for crate in $DEPENDENT_CRATES; do
+            cargo package --list -p "$crate"
+            cargo publish --dry-run --allow-dirty -p "$crate"
+          done

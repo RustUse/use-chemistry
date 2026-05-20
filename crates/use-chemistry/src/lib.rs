@@ -13,6 +13,7 @@ pub use use_isotope;
 pub use use_molecule;
 pub use use_oxidation_state;
 pub use use_periodic_table;
+pub use use_reaction;
 pub use use_stoichiometry;
 
 pub mod prelude;
@@ -20,10 +21,11 @@ pub mod prelude;
 #[cfg(test)]
 mod tests {
     use super::prelude::{
-        Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, ElementOxidationState,
-        Ion, IonCharge, MoleRatio, Molecule, MoleculeKind, OxidationState, ReactionEntry,
-        ReactionSide, StoichiometricCoefficient, atomic_mass_by_symbol, atomic_number_from_symbol,
-        electron_shells, element_by_symbol, isotope_by_symbol, period_for_atomic_number,
+        Bond, BondKind, BondOrder, ChemicalFormula, ChemicalReaction, Compound, CompoundKind,
+        ElementOxidationState, Ion, IonCharge, MoleRatio, Molecule, MoleculeKind, OxidationState,
+        ReactionEntry, ReactionSide, ReactionTerm, StoichiometricCoefficient,
+        atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
+        isotope_by_symbol, period_for_atomic_number,
     };
 
     #[test]
@@ -59,6 +61,20 @@ mod tests {
             ReactionSide::Product,
         )
         .expect("reaction entry should be valid");
+        let water_reaction = ChemicalReaction::new()
+            .with_reactant(
+                ReactionTerm::new(ChemicalFormula::parse("H2").expect("hydrogen should parse"))
+                    .with_coefficient(2)
+                    .expect("coefficient should be valid"),
+            )
+            .with_reactant(ReactionTerm::new(
+                ChemicalFormula::parse("O2").expect("oxygen should parse"),
+            ))
+            .with_product(
+                ReactionTerm::new(ChemicalFormula::parse("H2O").expect("water should parse"))
+                    .with_coefficient(2)
+                    .expect("coefficient should be valid"),
+            );
         let water_ratio = MoleRatio::from_values(2, 1).expect("ratio should be valid");
 
         assert_eq!(oxygen.atomic_number, 8);
@@ -67,6 +83,7 @@ mod tests {
         assert_eq!(sodium_ion.to_string(), "Na+");
         assert_eq!(iron_three.to_string(), "Fe(III)");
         assert_eq!(water_entry.to_string(), "2H2O");
+        assert_eq!(water_reaction.to_string(), "2H2 + O2 -> 2H2O");
         assert_eq!(water_ratio.to_string(), "2:1");
         assert_eq!(water.name().as_str(), "water");
         assert_eq!(water.formula().to_string(), "H2O");

@@ -20,6 +20,7 @@ use-atomic-number.workspace = true
 use-bond.workspace = true
 use-chemical-formula.workspace = true
 use-stoichiometry.workspace = true
+use-reaction.workspace = true
 use-oxidation-state.workspace = true
 use-ion.workspace = true
 use-compound.workspace = true

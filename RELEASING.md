@@ -43,22 +43,24 @@ For the first public crates.io wave, publish in dependency order:
 2. `use-isotope`
 3. `use-chemical-formula`
 4. `use-stoichiometry`
-5. `use-bond`
-6. `use-oxidation-state`
-7. `use-ion`
-8. `use-compound`
-9. `use-molecule`
-10. `use-atomic-number`
-11. `use-atomic-mass`
-12. `use-electron-shell`
-13. `use-periodic-table`
-14. `use-chemistry`
+5. `use-reaction`
+6. `use-bond`
+7. `use-oxidation-state`
+8. `use-ion`
+9. `use-compound`
+10. `use-molecule`
+11. `use-atomic-number`
+12. `use-atomic-mass`
+13. `use-electron-shell`
+14. `use-periodic-table`
+15. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
 published. `use-stoichiometry`, `use-ion`, `use-compound`, and `use-molecule`
-must wait until `use-chemical-formula` is visible on crates.io. The umbrella crate
-`use-chemistry` should come last after the focused crates are visible on
-crates.io.
+must wait until `use-chemical-formula` is visible on crates.io. `use-reaction`
+must wait until both `use-chemical-formula` and `use-stoichiometry` are visible
+on crates.io. The umbrella crate `use-chemistry` should come last after the
+focused crates are visible on crates.io.
 
 ## Post-initial-release automation
 
@@ -95,6 +97,7 @@ cargo publish -p use-element --dry-run
 cargo publish -p use-isotope --dry-run
 cargo publish -p use-chemical-formula --dry-run
 cargo publish -p use-stoichiometry --dry-run
+cargo publish -p use-reaction --dry-run
 cargo publish -p use-bond --dry-run
 cargo publish -p use-oxidation-state --dry-run
 cargo publish -p use-ion --dry-run

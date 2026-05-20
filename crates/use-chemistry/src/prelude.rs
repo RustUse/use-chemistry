@@ -47,6 +47,11 @@ pub use use_periodic_table::{
     group_elements, group_for_atomic_number, is_actinide, is_alkali_metal, is_alkaline_earth_metal,
     is_halogen, is_lanthanide, is_noble_gas, period_elements, period_for_atomic_number,
 };
+pub use use_reaction::{
+    Catalyst, ChemicalReaction, Product, Reactant, ReactionArrow, ReactionCondition,
+    ReactionConditionSet, ReactionDirection, ReactionEquation, ReactionKind, ReactionTerm,
+    ReactionValidationError, Solvent,
+};
 pub use use_stoichiometry::{
     ActualYield, ExcessReagent, FormulaQuantity, LimitingReagent, MoleRatio, PercentYield,
     ProductEntry, ReactantEntry, ReactionEntry, ReactionSide, StoichiometricCoefficient,

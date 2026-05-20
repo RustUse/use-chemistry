@@ -4,6 +4,7 @@ members = [
     "crates/use-element",
     "crates/use-chemical-formula",
     "crates/use-stoichiometry",
+    "crates/use-reaction",
     "crates/use-bond",
     "crates/use-oxidation-state",
     "crates/use-ion",
@@ -34,6 +35,7 @@ use-atomic-number = { version = "0.1.0", path = "crates/use-atomic-number" }
 use-bond = { version = "0.1.0", path = "crates/use-bond" }
 use-chemical-formula = { version = "0.1.0", path = "crates/use-chemical-formula" }
 use-stoichiometry = { version = "0.1.0", path = "crates/use-stoichiometry" }
+use-reaction = { version = "0.1.0", path = "crates/use-reaction" }
 use-oxidation-state = { version = "0.1.0", path = "crates/use-oxidation-state" }
 use-ion = { version = "0.1.0", path = "crates/use-ion" }
 use-compound = { version = "0.1.0", path = "crates/use-compound" }
@@ -54,6 +56,7 @@ first-publish-candidates = [
     "use-isotope",
     "use-chemical-formula",
     "use-stoichiometry",
+    "use-reaction",
     "use-bond",
     "use-oxidation-state",
     "use-ion",
