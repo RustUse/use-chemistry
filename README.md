@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, compound identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -11,6 +11,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 - `use-chemistry`: umbrella crate that reexports the full workspace with a shared prelude
 - `use-element`: basic chemical element primitives and lookup helpers
 - `use-chemical-formula`: structural chemical formula primitives and lightweight parsing
+- `use-compound`: named chemical compound identity primitives and lightweight descriptors
 - `use-periodic-table`: periodic-table lookup and conservative classification helpers
 - `use-isotope`: chemistry-facing isotope identity and notation helpers
 - `use-atomic-number`: atomic-number validation and neutral-atom helpers
@@ -24,15 +25,19 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 
 ```rust
 use use_chemistry::prelude::{
-	ChemicalFormula, atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells,
-	element_by_symbol, isotope_by_symbol,
+	ChemicalFormula, Compound, CompoundKind, atomic_mass_by_symbol, atomic_number_from_symbol,
+	electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
 let carbon_14 = isotope_by_symbol("C", 14).unwrap();
 let calcium_hydroxide = ChemicalFormula::parse("Ca(OH)2").unwrap();
+let water = Compound::new("water", ChemicalFormula::parse("H2O").unwrap())
+	.unwrap()
+	.with_kind(CompoundKind::Molecular);
 
 assert_eq!(oxygen.atomic_number, 8);
+assert_eq!(water.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
 assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
 assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
@@ -79,6 +84,25 @@ assert_eq!(counts.get("S"), Some(&3));
 assert_eq!(counts.get("O"), Some(&12));
 ```
 
+### Compound identity
+
+```rust
+use use_chemical_formula::ChemicalFormula;
+use use_compound::{Compound, CompoundIdentifier, CompoundKind};
+
+let glucose = Compound::new("glucose", ChemicalFormula::parse("C6H12O6").unwrap())
+	.unwrap()
+	.try_with_common_name("dextrose")
+	.unwrap()
+	.with_kind(CompoundKind::Organic)
+	.try_with_identifier(CompoundIdentifier::pub_chem_cid("5793").unwrap())
+	.unwrap();
+
+assert_eq!(glucose.name().as_str(), "glucose");
+assert_eq!(glucose.formula().to_string(), "C6H12O6");
+assert_eq!(glucose.common_name().map(|name| name.as_str()), Some("dextrose"));
+```
+
 ### Period and group helpers
 
 ```rust
@@ -119,4 +143,4 @@ assert_eq!(isotope_neutron_count(6, 14), Some(8));
 
 ## Status
 
-This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of molecular geometry, bonding, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, and broader framework-style abstractions.
+This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound databases, naming engines, molecular geometry, bonding, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, and broader framework-style abstractions.

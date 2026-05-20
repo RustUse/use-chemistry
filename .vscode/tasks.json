@@ -159,6 +159,26 @@
             "problemMatcher": []
         },
         {
+            "label": "cargo: publish dry-run registry-dependent crates",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-lc",
+                "crates=\"use-compound\"; set -euo pipefail; for crate in $crates; do cargo package --list -p \"$crate\"; cargo publish --dry-run --allow-dirty -p \"$crate\"; done"
+            ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-Command",
+                    "$ErrorActionPreference = 'Stop'; $crates = @('use-compound'); foreach ($crate in $crates) { cargo package --list -p $crate; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; cargo publish --dry-run --allow-dirty -p $crate; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }"
+                ]
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "cargo: verify workspace",
             "dependsOrder": "sequence",
             "dependsOn": [

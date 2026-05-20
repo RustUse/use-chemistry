@@ -1,6 +1,7 @@
-.PHONY: help fmt check lint test test-minimal build doc examples audit deny sbom publish-dry-run release-readiness verify
+.PHONY: help fmt check lint test test-minimal build doc examples audit deny sbom publish-dry-run dependent-publish-dry-run release-readiness verify
 
 PUBLISH_CRATES := use-element use-isotope use-chemical-formula use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
+DEPENDENT_PUBLISH_CRATES := use-compound
 SBOM_MANIFEST := crates/use-element/Cargo.toml
 
 help:
@@ -18,6 +19,7 @@ help:
 		"deny               Run cargo-deny" \
 		"sbom               Generate a CycloneDX SBOM" \
 		"publish-dry-run    List package contents and dry-run publish workspace crates" \
+		"dependent-publish-dry-run  Dry-run crates that require newly published dependencies" \
 		"release-readiness  Run the pre-release validation path" \
 		"verify             Run the main workspace validation path"
 
@@ -56,6 +58,12 @@ sbom:
 
 publish-dry-run:
 	@for crate in $(PUBLISH_CRATES); do \
+		cargo package --list -p $$crate; \
+		cargo publish --dry-run --allow-dirty -p $$crate; \
+	done
+
+dependent-publish-dry-run:
+	@for crate in $(DEPENDENT_PUBLISH_CRATES); do \
 		cargo package --list -p $$crate; \
 		cargo publish --dry-run --allow-dirty -p $$crate; \
 	done

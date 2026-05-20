@@ -10,6 +10,10 @@ pub use use_chemical_formula::{
     FormulaParseError, FormulaPart, FormulaTerm, FormulaValidationError, HydratePart,
     is_valid_element_symbol,
 };
+pub use use_compound::{
+    CommonName, Compound, CompoundFormula, CompoundIdentifier, CompoundKind, CompoundName,
+    CompoundRegistry, CompoundValidationError, EmpiricalFormula, MolecularFormula, SystematicName,
+};
 pub use use_electron_shell::{
     electron_shells, outer_shell_electrons, shell_count, valence_electrons_main_group,
 };

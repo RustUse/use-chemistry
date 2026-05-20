@@ -11,13 +11,14 @@ readme = "README.md"
 rust-version.workspace = true
 description = "Composable chemistry primitives for RustUse."
 documentation = "https://docs.rs/use-chemistry"
-keywords = ["chemistry", "elements", "formula", "isotope"]
+keywords = ["chemistry", "compound", "formula", "elements"]
 categories = ["science", "data-structures"]
 
 [dependencies]
 use-atomic-mass.workspace = true
 use-atomic-number.workspace = true
 use-chemical-formula.workspace = true
+use-compound.workspace = true
 use-electron-shell.workspace = true
 use-element.workspace = true
 use-isotope.workspace = true

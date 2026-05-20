@@ -27,10 +27,18 @@ dependencies = [
  "use-atomic-mass",
  "use-atomic-number",
  "use-chemical-formula",
+ "use-compound",
  "use-electron-shell",
  "use-element",
  "use-isotope",
  "use-periodic-table",
+]
+
+[[package]]
+name = "use-compound"
+version = "0.1.0"
+dependencies = [
+ "use-chemical-formula",
 ]
 
 [[package]]
