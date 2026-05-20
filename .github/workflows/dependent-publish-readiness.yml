@@ -18,7 +18,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             DEPENDENT_CRATES: >-
-                use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
+                use-isotope use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
         steps:
             - name: Check out repository
               uses: actions/checkout@v4

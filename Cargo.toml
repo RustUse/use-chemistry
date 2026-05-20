@@ -2,6 +2,7 @@
 members = [
     "crates/use-chemistry",
     "crates/use-element",
+    "crates/use-isotope",
     "crates/use-periodic-table",
     "crates/use-atomic-number",
     "crates/use-atomic-mass",
@@ -25,6 +26,7 @@ use-atomic-mass = { version = "0.1.0", path = "crates/use-atomic-mass" }
 use-atomic-number = { version = "0.1.0", path = "crates/use-atomic-number" }
 use-electron-shell = { version = "0.1.0", path = "crates/use-electron-shell" }
 use-element = { version = "0.1.0", path = "crates/use-element" }
+use-isotope = { version = "0.1.0", path = "crates/use-isotope" }
 use-periodic-table = { version = "0.1.0", path = "crates/use-periodic-table" }
 
 [workspace.lints.rust]
@@ -35,6 +37,7 @@ publish = false
 versioning = "lockstep-0.x"
 first-publish-candidates = [
     "use-element",
+    "use-isotope",
     "use-periodic-table",
     "use-atomic-number",
     "use-atomic-mass",

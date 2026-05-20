@@ -76,6 +76,7 @@ assert_eq!(element_symbol(79), Some("Au"));
 
 - Static periodic-table data only.
 - No runtime network access.
-- No isotope tables.
+- Isotope identity and notation helpers live in `use-isotope`.
+- No isotope abundance, mass, or decay tables.
 - No molecular or reaction modeling.
 - Conservative group assignment for lanthanides and actinides via `None`.

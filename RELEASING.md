@@ -40,15 +40,16 @@ attempts any publish step.
 For the first public crates.io wave, publish in dependency order:
 
 1. `use-element`
-2. `use-atomic-number`
-3. `use-atomic-mass`
-4. `use-electron-shell`
-5. `use-periodic-table`
-6. `use-chemistry`
+2. `use-isotope`
+3. `use-atomic-number`
+4. `use-atomic-mass`
+5. `use-electron-shell`
+6. `use-periodic-table`
+7. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
 published. The umbrella crate `use-chemistry` should come last after the five
-focused crates are visible on crates.io.
+dependent focused crates are visible on crates.io.
 
 ## Post-initial-release automation
 
@@ -78,6 +79,7 @@ repository later moves to trusted publishing.
 
 ```sh
 cargo publish -p use-element --dry-run
+cargo publish -p use-isotope --dry-run
 cargo publish -p use-periodic-table --dry-run
 ```
 

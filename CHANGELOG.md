@@ -8,3 +8,5 @@
   `use-chemistry` workspace.
 - Added a manual publish workflow and maintainer release guidance for the
   initial chemistry crate publish wave.
+- Added `use-isotope` for chemistry-facing isotope identity, count, and
+  notation helpers, plus umbrella reexports through `use-chemistry`.

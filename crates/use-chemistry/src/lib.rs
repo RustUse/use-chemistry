@@ -5,6 +5,7 @@ pub use use_atomic_mass;
 pub use use_atomic_number;
 pub use use_electron_shell;
 pub use use_element;
+pub use use_isotope;
 pub use use_periodic_table;
 
 pub mod prelude;
@@ -13,7 +14,7 @@ pub mod prelude;
 mod tests {
     use super::prelude::{
         atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
-        period_for_atomic_number,
+        isotope_by_symbol, period_for_atomic_number,
     };
 
     #[test]
@@ -24,6 +25,10 @@ mod tests {
         assert_eq!(atomic_number_from_symbol("Na"), Some(11));
         assert!((atomic_mass_by_symbol("O").unwrap_or_default() - 15.999).abs() < 0.01);
         assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
+        assert_eq!(
+            isotope_by_symbol("C", 14).map(|value| value.neutron_count()),
+            Some(8)
+        );
         assert_eq!(period_for_atomic_number(11), Some(3));
     }
 }

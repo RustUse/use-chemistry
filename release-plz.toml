@@ -13,10 +13,16 @@ changelog_update = true
 changelog_path = "./CHANGELOG.md"
 changelog_include = [
     "use-periodic-table",
+  "use-isotope",
     "use-atomic-number",
     "use-atomic-mass",
     "use-electron-shell",
 ]
+
+[[package]]
+name = "use-isotope"
+release = true
+version_group = "rustuse-chemistry"
 
 [[package]]
 name = "use-periodic-table"
