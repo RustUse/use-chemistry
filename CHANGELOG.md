@@ -13,6 +13,9 @@
 - Added `use-bond` for chemical bond identity primitives, bond kind/order
   labels, endpoint references, polarity and strength labels, optional length,
   and lightweight descriptors.
+- Added `use-oxidation-state` for oxidation-state value primitives, bounded
+  magnitudes, Roman numeral labels, element/formula assignments, assignment
+  sets, validation errors, and umbrella reexports through `use-chemistry`.
 - Added `use-ion` for formula-backed charged atom and charged group
   primitives, nonzero ion charges, cation/anion helpers, monatomic/polyatomic
   wrappers, optional names, and oxidation-state labels.

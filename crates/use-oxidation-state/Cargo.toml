@@ -1,0 +1,18 @@
+[package]
+name = "use-oxidation-state"
+description = "Oxidation-state primitives for RustUse"
+publish = true
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+readme = "README.md"
+homepage = "https://github.com/RustUse/use-chemistry"
+documentation = "https://docs.rs/use-oxidation-state"
+keywords = ["chemistry", "oxidation", "state", "element", "formula"]
+categories = ["science", "data-structures"]
+
+[package.metadata.docs.rs]
+all-features = true

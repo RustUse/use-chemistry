@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, bond primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, bond primitives, oxidation-state primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -12,6 +12,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 - `use-element`: basic chemical element primitives and lookup helpers
 - `use-chemical-formula`: structural chemical formula primitives and lightweight parsing
 - `use-bond`: chemical bond identity, order, endpoint, polarity, and strength primitives
+- `use-oxidation-state`: oxidation-state values, Roman labels, and assignment primitives
 - `use-ion`: charged atom and charged group primitives backed by formulas
 - `use-compound`: named chemical compound identity primitives and lightweight descriptors
 - `use-molecule`: discrete molecule identity primitives with optional atom-level structure
@@ -29,8 +30,8 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 ```rust
 use use_chemistry::prelude::{
 	Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind,
-	Ion, IonCharge, atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells,
-	element_by_symbol, isotope_by_symbol,
+	ElementOxidationState, Ion, IonCharge, OxidationState, atomic_mass_by_symbol,
+	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -47,10 +48,12 @@ let sodium_ion = Ion::new(
 	ChemicalFormula::parse("Na").unwrap(),
 	IonCharge::positive(1).unwrap(),
 );
+let iron_three = ElementOxidationState::new("Fe", OxidationState::positive(3).unwrap()).unwrap();
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
 assert_eq!(sodium_ion.to_string(), "Na+");
+assert_eq!(iron_three.to_string(), "Fe(III)");
 assert_eq!(water.formula().to_string(), "H2O");
 assert_eq!(water_molecule.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
@@ -152,6 +155,19 @@ assert_eq!(sodium.to_string(), "Na+");
 assert_eq!(sulfate.to_string(), "SO4^2-");
 ```
 
+### Oxidation states
+
+```rust
+use use_oxidation_state::{ElementOxidationState, OxidationState, OxidationStateAssignment};
+
+let iron_two = ElementOxidationState::new("Fe", OxidationState::positive(2).unwrap()).unwrap();
+let oxygen = OxidationStateAssignment::new("O", OxidationState::negative(2).unwrap()).unwrap();
+
+assert_eq!(iron_two.to_string(), "Fe(II)");
+assert_eq!(oxygen.to_string(), "O: -2");
+assert_eq!(OxidationState::zero().to_string(), "0");
+```
+
 ### Molecule identity
 
 ```rust
@@ -212,4 +228,4 @@ assert_eq!(isotope_neutron_count(6, 14), Some(8));
 
 ## Status
 
-This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound, molecule, or ion databases, naming engines, molecular geometry, force fields, bond inference, electrochemistry simulation, acid/base behavior, redox reactions, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, chemical file-format parsing, and broader framework-style abstractions.
+This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound, molecule, ion, or oxidation-state databases, naming engines, molecular geometry, force fields, bond inference, oxidation-state inference, electrochemistry simulation, acid/base behavior, redox reactions, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, chemical file-format parsing, and broader framework-style abstractions.

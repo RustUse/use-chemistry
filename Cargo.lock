@@ -38,6 +38,7 @@ dependencies = [
  "use-ion",
  "use-isotope",
  "use-molecule",
+ "use-oxidation-state",
  "use-periodic-table",
 ]
 
@@ -79,6 +80,10 @@ version = "0.1.0"
 dependencies = [
  "use-chemical-formula",
 ]
+
+[[package]]
+name = "use-oxidation-state"
+version = "0.1.0"
 
 [[package]]
 name = "use-periodic-table"

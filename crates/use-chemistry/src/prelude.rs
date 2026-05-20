@@ -38,6 +38,11 @@ pub use use_molecule::{
     MolecularFormula as MoleculeFormula, Molecule, MoleculeBuilder, MoleculeCharge, MoleculeKind,
     MoleculeName, MoleculeValidationError,
 };
+pub use use_oxidation_state::{
+    ElementOxidationState, FormulaOxidationState, OxidationMagnitude, OxidationSign,
+    OxidationState, OxidationStateAssignment, OxidationStateSet, OxidationStateValidationError,
+    RomanOxidationState,
+};
 pub use use_periodic_table::{
     group_elements, group_for_atomic_number, is_actinide, is_alkali_metal, is_alkaline_earth_metal,
     is_halogen, is_lanthanide, is_noble_gas, period_elements, period_for_atomic_number,
