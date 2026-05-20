@@ -8,6 +8,7 @@ pub use use_chemical_formula;
 pub use use_compound;
 pub use use_electron_shell;
 pub use use_element;
+pub use use_ion;
 pub use use_isotope;
 pub use use_molecule;
 pub use use_periodic_table;
@@ -17,9 +18,9 @@ pub mod prelude;
 #[cfg(test)]
 mod tests {
     use super::prelude::{
-        Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind,
-        atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
-        isotope_by_symbol, period_for_atomic_number,
+        Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Ion, IonCharge,
+        Molecule, MoleculeKind, atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells,
+        element_by_symbol, isotope_by_symbol, period_for_atomic_number,
     };
 
     #[test]
@@ -40,9 +41,15 @@ mod tests {
         .expect("molecule should be valid")
         .with_kind(MoleculeKind::Neutral);
         let covalent_bond = Bond::new(BondKind::Covalent).with_order(BondOrder::Single);
+        let sodium_ion = Ion::new(
+            ChemicalFormula::parse("Na").expect("sodium should parse"),
+            IonCharge::positive(1).expect("charge should be valid"),
+        );
 
         assert_eq!(oxygen.atomic_number, 8);
         assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
+        assert!(sodium_ion.is_cation());
+        assert_eq!(sodium_ion.to_string(), "Na+");
         assert_eq!(water.name().as_str(), "water");
         assert_eq!(water.formula().to_string(), "H2O");
         assert_eq!(water_molecule.formula().to_string(), "H2O");

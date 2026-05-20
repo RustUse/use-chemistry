@@ -1,0 +1,21 @@
+[package]
+name = "use-ion"
+description = "Ion identity and charge primitives for RustUse"
+publish = true
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+readme = "README.md"
+homepage = "https://github.com/RustUse/use-chemistry"
+documentation = "https://docs.rs/use-ion"
+keywords = ["chemistry", "ion", "charge", "formula", "cation"]
+categories = ["science", "data-structures"]
+
+[dependencies]
+use-chemical-formula.workspace = true
+
+[package.metadata.docs.rs]
+all-features = true

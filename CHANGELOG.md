@@ -13,6 +13,9 @@
 - Added `use-bond` for chemical bond identity primitives, bond kind/order
   labels, endpoint references, polarity and strength labels, optional length,
   and lightweight descriptors.
+- Added `use-ion` for formula-backed charged atom and charged group
+  primitives, nonzero ion charges, cation/anion helpers, monatomic/polyatomic
+  wrappers, optional names, and oxidation-state labels.
 - Added `use-compound` for named chemical compound identity primitives,
   lightweight classification labels, optional registry identifiers, and formula
   wrappers backed by `use-chemical-formula`.

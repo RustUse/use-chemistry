@@ -25,6 +25,10 @@ pub use use_element::{
     Element, all_elements, element_by_atomic_number, element_by_symbol, element_name,
     element_symbol,
 };
+pub use use_ion::{
+    Anion, Cation, ChargeMagnitude, ChargeSign, Ion, IonCharge, IonFormula, IonKind, IonName,
+    IonValidationError, MonatomicIon, PolyatomicIon,
+};
 pub use use_isotope::{
     Isotope, hyphen_notation, is_valid_isotope_numbers, isotope, isotope_by_symbol,
     isotope_neutron_count, isotope_nucleon_count, isotope_proton_count, isotope_symbol,
