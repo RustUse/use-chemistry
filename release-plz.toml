@@ -15,6 +15,7 @@ changelog_include = [
     "use-periodic-table",
     "use-isotope",
     "use-chemical-formula",
+    "use-stoichiometry",
     "use-bond",
     "use-oxidation-state",
     "use-ion",
@@ -27,6 +28,11 @@ changelog_include = [
 
 [[package]]
 name = "use-chemical-formula"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-stoichiometry"
 release = true
 version_group = "rustuse-chemistry"
 

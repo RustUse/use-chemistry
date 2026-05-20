@@ -10,6 +10,9 @@
   initial chemistry crate publish wave.
 - Added `use-chemical-formula` for structural chemical formula primitives,
   lightweight parsing, display, and expanded element counts.
+- Added `use-stoichiometry` for formula-backed stoichiometric coefficients,
+  terms, mole ratios, reaction-side entries, reagent labels, yield helpers,
+  validation errors, and umbrella reexports through `use-chemistry`.
 - Added `use-bond` for chemical bond identity primitives, bond kind/order
   labels, endpoint references, polarity and strength labels, optional length,
   and lightweight descriptors.

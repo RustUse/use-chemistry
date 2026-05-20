@@ -42,20 +42,21 @@ For the first public crates.io wave, publish in dependency order:
 1. `use-element`
 2. `use-isotope`
 3. `use-chemical-formula`
-4. `use-bond`
-5. `use-oxidation-state`
-6. `use-ion`
-7. `use-compound`
-8. `use-molecule`
-9. `use-atomic-number`
-10. `use-atomic-mass`
-11. `use-electron-shell`
-12. `use-periodic-table`
-13. `use-chemistry`
+4. `use-stoichiometry`
+5. `use-bond`
+6. `use-oxidation-state`
+7. `use-ion`
+8. `use-compound`
+9. `use-molecule`
+10. `use-atomic-number`
+11. `use-atomic-mass`
+12. `use-electron-shell`
+13. `use-periodic-table`
+14. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
-published. `use-ion`, `use-compound`, and `use-molecule` must wait until
-`use-chemical-formula` is visible on crates.io. The umbrella crate
+published. `use-stoichiometry`, `use-ion`, `use-compound`, and `use-molecule`
+must wait until `use-chemical-formula` is visible on crates.io. The umbrella crate
 `use-chemistry` should come last after the focused crates are visible on
 crates.io.
 
@@ -85,10 +86,15 @@ repository later moves to trusted publishing.
 
 ## Local dry-run examples
 
+Run formula-dependent dry-runs only after `use-chemical-formula` is visible on
+crates.io, because `cargo publish --dry-run` verifies path dependencies against
+the registry package graph.
+
 ```sh
 cargo publish -p use-element --dry-run
 cargo publish -p use-isotope --dry-run
 cargo publish -p use-chemical-formula --dry-run
+cargo publish -p use-stoichiometry --dry-run
 cargo publish -p use-bond --dry-run
 cargo publish -p use-oxidation-state --dry-run
 cargo publish -p use-ion --dry-run

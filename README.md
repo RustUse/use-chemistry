@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, bond primitives, oxidation-state primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, stoichiometry primitives, bond primitives, oxidation-state primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -11,6 +11,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 - `use-chemistry`: umbrella crate that reexports the full workspace with a shared prelude
 - `use-element`: basic chemical element primitives and lookup helpers
 - `use-chemical-formula`: structural chemical formula primitives and lightweight parsing
+- `use-stoichiometry`: coefficients, formula terms, mole ratios, reaction-side entries, and yield helpers
 - `use-bond`: chemical bond identity, order, endpoint, polarity, and strength primitives
 - `use-oxidation-state`: oxidation-state values, Roman labels, and assignment primitives
 - `use-ion`: charged atom and charged group primitives backed by formulas
@@ -30,8 +31,9 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 ```rust
 use use_chemistry::prelude::{
 	Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind,
-	ElementOxidationState, Ion, IonCharge, OxidationState, atomic_mass_by_symbol,
-	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
+	ElementOxidationState, Ion, IonCharge, MoleRatio, OxidationState, ReactionEntry,
+	ReactionSide, StoichiometricCoefficient, atomic_mass_by_symbol, atomic_number_from_symbol,
+	electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -49,11 +51,20 @@ let sodium_ion = Ion::new(
 	IonCharge::positive(1).unwrap(),
 );
 let iron_three = ElementOxidationState::new("Fe", OxidationState::positive(3).unwrap()).unwrap();
+let water_entry = ReactionEntry::new(
+	StoichiometricCoefficient::new(2).unwrap(),
+	ChemicalFormula::parse("H2O").unwrap(),
+	ReactionSide::Product,
+)
+.unwrap();
+let water_ratio = MoleRatio::from_values(2, 1).unwrap();
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
 assert_eq!(sodium_ion.to_string(), "Na+");
 assert_eq!(iron_three.to_string(), "Fe(III)");
+assert_eq!(water_entry.to_string(), "2H2O");
+assert_eq!(water_ratio.to_string(), "2:1");
 assert_eq!(water.formula().to_string(), "H2O");
 assert_eq!(water_molecule.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
@@ -100,6 +111,31 @@ assert_eq!(formula.to_string(), "Al2(SO4)3");
 assert_eq!(counts.get("Al"), Some(&2));
 assert_eq!(counts.get("S"), Some(&3));
 assert_eq!(counts.get("O"), Some(&12));
+```
+
+### Stoichiometry primitives
+
+```rust
+use use_chemical_formula::ChemicalFormula;
+use use_stoichiometry::{MoleRatio, ReactionEntry, ReactionSide, StoichiometricCoefficient};
+
+let hydrogen = ReactionEntry::new(
+	StoichiometricCoefficient::new(2).unwrap(),
+	ChemicalFormula::parse("H2").unwrap(),
+	ReactionSide::Reactant,
+)
+.unwrap();
+let oxygen = ReactionEntry::new(
+	StoichiometricCoefficient::new(1).unwrap(),
+	ChemicalFormula::parse("O2").unwrap(),
+	ReactionSide::Reactant,
+)
+.unwrap();
+let ratio = MoleRatio::from_values(2, 1).unwrap();
+
+assert_eq!(hydrogen.to_string(), "2H2");
+assert_eq!(oxygen.to_string(), "O2");
+assert_eq!(ratio.to_string(), "2:1");
 ```
 
 ### Compound identity
@@ -228,4 +264,4 @@ assert_eq!(isotope_neutron_count(6, 14), Some(8));
 
 ## Status
 
-This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound, molecule, ion, or oxidation-state databases, naming engines, molecular geometry, force fields, bond inference, oxidation-state inference, electrochemistry simulation, acid/base behavior, redox reactions, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, chemical file-format parsing, and broader framework-style abstractions.
+This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound, molecule, ion, oxidation-state, or reaction databases, naming engines, molecular geometry, force fields, bond inference, oxidation-state inference, electrochemistry simulation, acid/base behavior, redox reactions, reaction balancing, product inference, reaction kinetics, equilibrium calculations, unit-heavy lab calculations, isotope abundance/mass/decay tables, thermochemistry, chemical file-format parsing, and broader framework-style abstractions.

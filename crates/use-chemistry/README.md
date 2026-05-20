@@ -4,7 +4,7 @@ Composable chemistry primitives for `RustUse`.
 
 `use-chemistry` is the thin umbrella crate for the `RustUse` chemistry workspace. Use it when you
 want the common prelude and reexports from `use-element`, `use-atomic-number`,
-`use-atomic-mass`, `use-bond`, `use-chemical-formula`, `use-ion`,
+`use-atomic-mass`, `use-bond`, `use-chemical-formula`, `use-stoichiometry`, `use-ion`,
 `use-oxidation-state`, `use-compound`, `use-molecule`, `use-electron-shell`,
 `use-isotope`, and `use-periodic-table` in one dependency.
 
@@ -15,6 +15,7 @@ want the common prelude and reexports from `use-element`, `use-atomic-number`,
 - `use_atomic_mass`
 - `use_bond`
 - `use_chemical_formula`
+- `use_stoichiometry`
 - `use_ion`
 - `use_oxidation_state`
 - `use_compound`
@@ -28,8 +29,9 @@ want the common prelude and reexports from `use-element`, `use-atomic-number`,
 ```rust
 use use_chemistry::prelude::{
 	Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind,
-	ElementOxidationState, Ion, IonCharge, OxidationState, atomic_mass_by_symbol,
-	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
+	ElementOxidationState, Ion, IonCharge, MoleRatio, OxidationState, ReactionEntry,
+	ReactionSide, StoichiometricCoefficient, atomic_mass_by_symbol, atomic_number_from_symbol,
+	electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -47,11 +49,20 @@ let sodium_ion = Ion::new(
 	IonCharge::positive(1).unwrap(),
 );
 let iron_three = ElementOxidationState::new("Fe", OxidationState::positive(3).unwrap()).unwrap();
+let water_entry = ReactionEntry::new(
+	StoichiometricCoefficient::new(2).unwrap(),
+	ChemicalFormula::parse("H2O").unwrap(),
+	ReactionSide::Product,
+)
+.unwrap();
+let water_ratio = MoleRatio::from_values(2, 1).unwrap();
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
 assert_eq!(sodium_ion.to_string(), "Na+");
 assert_eq!(iron_three.to_string(), "Fe(III)");
+assert_eq!(water_entry.to_string(), "2H2O");
+assert_eq!(water_ratio.to_string(), "2:1");
 assert_eq!(water.formula().to_string(), "H2O");
 assert_eq!(water_molecule.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
