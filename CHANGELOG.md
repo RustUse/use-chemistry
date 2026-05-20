@@ -16,6 +16,9 @@
 - Added `use-reaction` for formula-backed chemical reaction equations,
   reactants, products, arrows, conditions, catalysts, solvents, classification
   labels, validation errors, and umbrella reexports through `use-chemistry`.
+- Added `use-molar-mass` for validated molar-mass values, atomic-mass lookup
+  entries, formula molar-mass calculations, element contribution totals, and
+  umbrella reexports through `use-chemistry`.
 - Added `use-bond` for chemical bond identity primitives, bond kind/order
   labels, endpoint references, polarity and strength labels, optional length,
   and lightweight descriptors.

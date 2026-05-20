@@ -10,6 +10,7 @@ pub use use_electron_shell;
 pub use use_element;
 pub use use_ion;
 pub use use_isotope;
+pub use use_molar_mass;
 pub use use_molecule;
 pub use use_oxidation_state;
 pub use use_periodic_table;
@@ -21,11 +22,12 @@ pub mod prelude;
 #[cfg(test)]
 mod tests {
     use super::prelude::{
-        Bond, BondKind, BondOrder, ChemicalFormula, ChemicalReaction, Compound, CompoundKind,
-        ElementOxidationState, Ion, IonCharge, MoleRatio, Molecule, MoleculeKind, OxidationState,
-        ReactionEntry, ReactionSide, ReactionTerm, StoichiometricCoefficient,
-        atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
-        isotope_by_symbol, period_for_atomic_number,
+        AtomicMassEntry, AtomicMassLookup, Bond, BondKind, BondOrder, ChemicalFormula,
+        ChemicalReaction, Compound, CompoundKind, ElementOxidationState, Ion, IonCharge,
+        MolarMassCalculation, MoleRatio, Molecule, MoleculeKind, OxidationState, ReactionEntry,
+        ReactionSide, ReactionTerm, StoichiometricCoefficient, atomic_mass_by_symbol,
+        atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
+        period_for_atomic_number,
     };
 
     #[test]
@@ -76,6 +78,16 @@ mod tests {
                     .expect("coefficient should be valid"),
             );
         let water_ratio = MoleRatio::from_values(2, 1).expect("ratio should be valid");
+        let molar_mass_lookup = AtomicMassLookup::from_entries([
+            AtomicMassEntry::new("H", 1.008).expect("hydrogen mass should be valid"),
+            AtomicMassEntry::new("O", 15.999).expect("oxygen mass should be valid"),
+        ]);
+        let water_molar_mass = MolarMassCalculation::new(
+            ChemicalFormula::parse("H2O").expect("water should parse"),
+            molar_mass_lookup,
+        )
+        .calculate()
+        .expect("molar mass should calculate");
 
         assert_eq!(oxygen.atomic_number, 8);
         assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
@@ -88,6 +100,7 @@ mod tests {
         assert_eq!(water.name().as_str(), "water");
         assert_eq!(water.formula().to_string(), "H2O");
         assert_eq!(water_molecule.formula().to_string(), "H2O");
+        assert!((water_molar_mass.molar_mass().value() - 18.015).abs() < 0.001);
         assert_eq!(counts.get("Ca"), Some(&1));
         assert_eq!(counts.get("O"), Some(&2));
         assert_eq!(counts.get("H"), Some(&2));

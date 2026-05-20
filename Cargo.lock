@@ -37,6 +37,7 @@ dependencies = [
  "use-element",
  "use-ion",
  "use-isotope",
+ "use-molar-mass",
  "use-molecule",
  "use-oxidation-state",
  "use-periodic-table",
@@ -74,6 +75,14 @@ name = "use-isotope"
 version = "0.1.0"
 dependencies = [
  "use-element",
+]
+
+[[package]]
+name = "use-molar-mass"
+version = "0.1.0"
+dependencies = [
+ "use-atomic-mass",
+ "use-chemical-formula",
 ]
 
 [[package]]

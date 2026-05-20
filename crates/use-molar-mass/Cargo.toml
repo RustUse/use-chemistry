@@ -1,0 +1,22 @@
+[package]
+name = "use-molar-mass"
+description = "Molar mass calculation primitives for RustUse chemistry crates"
+publish = true
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+readme = "README.md"
+homepage = "https://github.com/RustUse/use-chemistry"
+documentation = "https://docs.rs/use-molar-mass"
+keywords = ["chemistry", "molar-mass", "formula", "atomic-mass", "mass"]
+categories = ["science", "data-structures"]
+
+[dependencies]
+use-atomic-mass.workspace = true
+use-chemical-formula.workspace = true
+
+[package.metadata.docs.rs]
+all-features = true

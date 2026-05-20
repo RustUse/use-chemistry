@@ -27,7 +27,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             PUBLISHED_CRATES: >-
-                use-element use-isotope use-chemical-formula use-stoichiometry use-reaction use-bond use-oxidation-state use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-electron-shell use-chemistry
+                use-element use-isotope use-chemical-formula use-stoichiometry use-reaction use-bond use-oxidation-state use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-molar-mass use-electron-shell use-chemistry
         steps:
             - name: Check out repository
               uses: actions/checkout@v4

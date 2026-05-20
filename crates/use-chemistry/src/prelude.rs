@@ -33,6 +33,10 @@ pub use use_isotope::{
     Isotope, hyphen_notation, is_valid_isotope_numbers, isotope, isotope_by_symbol,
     isotope_neutron_count, isotope_nucleon_count, isotope_proton_count, isotope_symbol,
 };
+pub use use_molar_mass::{
+    AtomicMassEntry, AtomicMassLookup, ElementMassContribution, FormulaMolarMass,
+    MassContributionSet, MolarMass, MolarMassCalculation, MolarMassUnit, MolarMassValidationError,
+};
 pub use use_molecule::{
     AtomConnection, AtomCount, AtomIndex, AtomLabel, MolecularAtom, MolecularAtomId,
     MolecularFormula as MoleculeFormula, Molecule, MoleculeBuilder, MoleculeCharge, MoleculeKind,

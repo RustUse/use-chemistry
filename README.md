@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, stoichiometry primitives, reaction representation, bond primitives, oxidation-state primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, stoichiometry primitives, reaction representation, bond primitives, oxidation-state primitives, ion identity, compound identity, molecule identity, atomic numbers, atomic masses, formula molar-mass calculation, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -22,6 +22,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 - `use-isotope`: chemistry-facing isotope identity and notation helpers
 - `use-atomic-number`: atomic-number validation and neutral-atom helpers
 - `use-atomic-mass`: average atomic mass and molar mass helpers for elements
+- `use-molar-mass`: formula molar-mass values, atomic-mass lookups, and element contributions
 - `use-electron-shell`: simple shell distribution helpers for introductory chemistry use cases
 
 ## Umbrella crate
@@ -31,11 +32,12 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 
 ```rust
 use use_chemistry::prelude::{
-	Bond, BondKind, BondOrder, ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind,
-	ElementOxidationState, Ion, IonCharge, MoleRatio, OxidationState, ReactionEntry,
-	ReactionSide, ReactionTerm, StoichiometricCoefficient, atomic_mass_by_symbol,
-	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
-	ChemicalReaction,
+	AtomicMassEntry, AtomicMassLookup, Bond, BondKind, BondOrder, ChemicalFormula,
+	ChemicalReaction, Compound, CompoundKind, ElementOxidationState, Ion, IonCharge,
+	MolarMassCalculation, MoleRatio, Molecule, MoleculeKind, OxidationState,
+	ReactionEntry, ReactionSide, ReactionTerm, StoichiometricCoefficient,
+	atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
+	isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -64,6 +66,16 @@ let water_reaction = ChemicalReaction::new()
 	.with_reactant(ReactionTerm::new(ChemicalFormula::parse("O2").unwrap()))
 	.with_product(ReactionTerm::new(ChemicalFormula::parse("H2O").unwrap()).with_coefficient(2).unwrap());
 let water_ratio = MoleRatio::from_values(2, 1).unwrap();
+let molar_mass_lookup = AtomicMassLookup::from_entries([
+	AtomicMassEntry::new("H", 1.008).unwrap(),
+	AtomicMassEntry::new("O", 15.999).unwrap(),
+]);
+let water_molar_mass = MolarMassCalculation::new(
+	ChemicalFormula::parse("H2O").unwrap(),
+	molar_mass_lookup,
+)
+.calculate()
+.unwrap();
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(covalent_bond.order(), Some(BondOrder::Single));
@@ -74,6 +86,7 @@ assert_eq!(water_reaction.to_string(), "2H2 + O2 -> 2H2O");
 assert_eq!(water_ratio.to_string(), "2:1");
 assert_eq!(water.formula().to_string(), "H2O");
 assert_eq!(water_molecule.formula().to_string(), "H2O");
+assert!((water_molar_mass.molar_mass().value() - 18.015).abs() < 0.001);
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
 assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
 assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
@@ -104,6 +117,24 @@ use use_atomic_mass::atomic_mass_by_symbol;
 let oxygen_mass = atomic_mass_by_symbol("O").unwrap();
 
 assert!((oxygen_mass - 15.999).abs() < 0.01);
+```
+
+### Formula molar mass
+
+```rust
+use use_chemical_formula::ChemicalFormula;
+use use_molar_mass::{AtomicMassEntry, AtomicMassLookup, MolarMassCalculation};
+
+let lookup = AtomicMassLookup::from_entries([
+	AtomicMassEntry::new("H", 1.008).unwrap(),
+	AtomicMassEntry::new("O", 15.999).unwrap(),
+]);
+let water = MolarMassCalculation::new(ChemicalFormula::parse("H2O").unwrap(), lookup)
+	.calculate()
+	.unwrap();
+
+assert_eq!(water.molar_mass().to_string(), "18.015 g/mol");
+assert_eq!(water.contributions().as_slice()[0].to_string(), "H: 2 × 1.008 = 2.016 g/mol");
 ```
 
 ### Formula parsing

@@ -24,6 +24,7 @@ changelog_include = [
     "use-molecule",
     "use-atomic-number",
     "use-atomic-mass",
+    "use-molar-mass",
     "use-electron-shell",
 ]
 
@@ -84,6 +85,11 @@ version_group = "rustuse-chemistry"
 
 [[package]]
 name = "use-atomic-mass"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-molar-mass"
 release = true
 version_group = "rustuse-chemistry"
 

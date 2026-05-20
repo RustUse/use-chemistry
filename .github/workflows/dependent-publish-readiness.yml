@@ -4,7 +4,7 @@ name: Dependent Publish Readiness
   workflow_dispatch:
     inputs:
       registry-ready:
-        description: Confirm that use-element and use-chemical-formula are live on crates.io for dependent dry runs
+        description: Confirm that use-element, use-chemical-formula, and use-atomic-mass are live on crates.io for dependent dry runs
         required: true
         type: boolean
 
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPENDENT_CRATES: >-
-        use-isotope use-chemical-formula use-stoichiometry use-reaction use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
+        use-isotope use-chemical-formula use-stoichiometry use-reaction use-ion use-compound use-molecule use-periodic-table use-atomic-number use-atomic-mass use-molar-mass use-electron-shell
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -35,6 +35,9 @@ jobs:
 
       - name: Confirm use-chemical-formula is visible on crates.io
         run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-chemical-formula" > /dev/null
+
+      - name: Confirm use-atomic-mass is visible on crates.io
+        run: curl --fail --silent --show-error "https://crates.io/api/v1/crates/use-atomic-mass" > /dev/null
 
       - name: Dry-run publish dependent crates
         run: |
