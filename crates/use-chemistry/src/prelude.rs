@@ -5,6 +5,11 @@ pub use use_atomic_number::{
     atomic_number_from_name, atomic_number_from_symbol, electron_count_neutral_atom,
     is_valid_atomic_number, proton_count,
 };
+pub use use_chemical_formula::{
+    ChemicalFormula, ElementCount, ElementSymbol, FormulaGroup, FormulaMultiplier,
+    FormulaParseError, FormulaPart, FormulaTerm, FormulaValidationError, HydratePart,
+    is_valid_element_symbol,
+};
 pub use use_electron_shell::{
     electron_shells, outer_shell_electrons, shell_count, valence_electrons_main_group,
 };

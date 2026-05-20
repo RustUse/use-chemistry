@@ -41,15 +41,16 @@ For the first public crates.io wave, publish in dependency order:
 
 1. `use-element`
 2. `use-isotope`
-3. `use-atomic-number`
-4. `use-atomic-mass`
-5. `use-electron-shell`
-6. `use-periodic-table`
-7. `use-chemistry`
+3. `use-chemical-formula`
+4. `use-atomic-number`
+5. `use-atomic-mass`
+6. `use-electron-shell`
+7. `use-periodic-table`
+8. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
 published. The umbrella crate `use-chemistry` should come last after the five
-dependent focused crates are visible on crates.io.
+dependent focused crates and the independent formula crate are visible on crates.io.
 
 ## Post-initial-release automation
 
@@ -80,6 +81,7 @@ repository later moves to trusted publishing.
 ```sh
 cargo publish -p use-element --dry-run
 cargo publish -p use-isotope --dry-run
+cargo publish -p use-chemical-formula --dry-run
 cargo publish -p use-periodic-table --dry-run
 ```
 

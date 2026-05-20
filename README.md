@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -10,6 +10,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 
 - `use-chemistry`: umbrella crate that reexports the full workspace with a shared prelude
 - `use-element`: basic chemical element primitives and lookup helpers
+- `use-chemical-formula`: structural chemical formula primitives and lightweight parsing
 - `use-periodic-table`: periodic-table lookup and conservative classification helpers
 - `use-isotope`: chemistry-facing isotope identity and notation helpers
 - `use-atomic-number`: atomic-number validation and neutral-atom helpers
@@ -23,18 +24,20 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 
 ```rust
 use use_chemistry::prelude::{
-	atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells, element_by_symbol,
-	isotope_by_symbol,
+	ChemicalFormula, atomic_mass_by_symbol, atomic_number_from_symbol, electron_shells,
+	element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
 let carbon_14 = isotope_by_symbol("C", 14).unwrap();
+let calcium_hydroxide = ChemicalFormula::parse("Ca(OH)2").unwrap();
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
 assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
 assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
 assert_eq!(carbon_14.hyphen_notation(), Some(String::from("C-14")));
+assert_eq!(calcium_hydroxide.element_counts().get("O"), Some(&2));
 ```
 
 ## Examples
@@ -60,6 +63,20 @@ use use_atomic_mass::atomic_mass_by_symbol;
 let oxygen_mass = atomic_mass_by_symbol("O").unwrap();
 
 assert!((oxygen_mass - 15.999).abs() < 0.01);
+```
+
+### Formula parsing
+
+```rust
+use use_chemical_formula::ChemicalFormula;
+
+let formula = ChemicalFormula::parse("Al2(SO4)3").unwrap();
+let counts = formula.element_counts();
+
+assert_eq!(formula.to_string(), "Al2(SO4)3");
+assert_eq!(counts.get("Al"), Some(&2));
+assert_eq!(counts.get("S"), Some(&3));
+assert_eq!(counts.get("O"), Some(&12));
 ```
 
 ### Period and group helpers
@@ -102,4 +119,4 @@ assert_eq!(isotope_neutron_count(6, 14), Some(8));
 
 ## Status
 
-This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of molecule parsing, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, and broader framework-style abstractions.
+This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of molecular geometry, bonding, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, and broader framework-style abstractions.
