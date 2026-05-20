@@ -5,6 +5,10 @@ pub use use_atomic_number::{
     atomic_number_from_name, atomic_number_from_symbol, electron_count_neutral_atom,
     is_valid_atomic_number, proton_count,
 };
+pub use use_bond::{
+    Bond, BondDescriptor, BondEndpoint, BondKind, BondLength, BondOrder, BondParticipant,
+    BondPolarity, BondStrength, BondValidationError, FractionalBondOrder,
+};
 pub use use_chemical_formula::{
     ChemicalFormula, ElementCount, ElementSymbol, FormulaGroup, FormulaMultiplier,
     FormulaParseError, FormulaPart, FormulaTerm, FormulaValidationError, HydratePart,

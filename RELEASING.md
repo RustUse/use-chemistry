@@ -42,13 +42,14 @@ For the first public crates.io wave, publish in dependency order:
 1. `use-element`
 2. `use-isotope`
 3. `use-chemical-formula`
-4. `use-compound`
-5. `use-molecule`
-6. `use-atomic-number`
-7. `use-atomic-mass`
-8. `use-electron-shell`
-9. `use-periodic-table`
-10. `use-chemistry`
+4. `use-bond`
+5. `use-compound`
+6. `use-molecule`
+7. `use-atomic-number`
+8. `use-atomic-mass`
+9. `use-electron-shell`
+10. `use-periodic-table`
+11. `use-chemistry`
 
 `use-element` must exist on crates.io before the other chemistry crates can be
 published. `use-compound` and `use-molecule` must wait until
@@ -86,6 +87,7 @@ repository later moves to trusted publishing.
 cargo publish -p use-element --dry-run
 cargo publish -p use-isotope --dry-run
 cargo publish -p use-chemical-formula --dry-run
+cargo publish -p use-bond --dry-run
 cargo publish -p use-compound --dry-run
 cargo publish -p use-molecule --dry-run
 cargo publish -p use-periodic-table --dry-run

@@ -17,6 +17,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "use-bond"
+version = "0.1.0"
+
+[[package]]
 name = "use-chemical-formula"
 version = "0.1.0"
 
@@ -26,6 +30,7 @@ version = "0.1.0"
 dependencies = [
  "use-atomic-mass",
  "use-atomic-number",
+ "use-bond",
  "use-chemical-formula",
  "use-compound",
  "use-electron-shell",

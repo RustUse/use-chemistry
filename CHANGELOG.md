@@ -10,6 +10,9 @@
   initial chemistry crate publish wave.
 - Added `use-chemical-formula` for structural chemical formula primitives,
   lightweight parsing, display, and expanded element counts.
+- Added `use-bond` for chemical bond identity primitives, bond kind/order
+  labels, endpoint references, polarity and strength labels, optional length,
+  and lightweight descriptors.
 - Added `use-compound` for named chemical compound identity primitives,
   lightweight classification labels, optional registry identifiers, and formula
   wrappers backed by `use-chemical-formula`.

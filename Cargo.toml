@@ -3,6 +3,7 @@ members = [
     "crates/use-chemistry",
     "crates/use-element",
     "crates/use-chemical-formula",
+    "crates/use-bond",
     "crates/use-compound",
     "crates/use-molecule",
     "crates/use-isotope",
@@ -27,6 +28,7 @@ version = "0.1.0"
 [workspace.dependencies]
 use-atomic-mass = { version = "0.1.0", path = "crates/use-atomic-mass" }
 use-atomic-number = { version = "0.1.0", path = "crates/use-atomic-number" }
+use-bond = { version = "0.1.0", path = "crates/use-bond" }
 use-chemical-formula = { version = "0.1.0", path = "crates/use-chemical-formula" }
 use-compound = { version = "0.1.0", path = "crates/use-compound" }
 use-molecule = { version = "0.1.0", path = "crates/use-molecule" }
@@ -45,6 +47,7 @@ first-publish-candidates = [
     "use-element",
     "use-isotope",
     "use-chemical-formula",
+    "use-bond",
     "use-compound",
     "use-molecule",
     "use-periodic-table",
