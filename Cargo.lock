@@ -31,6 +31,7 @@ dependencies = [
  "use-electron-shell",
  "use-element",
  "use-isotope",
+ "use-molecule",
  "use-periodic-table",
 ]
 
@@ -57,6 +58,13 @@ name = "use-isotope"
 version = "0.1.0"
 dependencies = [
  "use-element",
+]
+
+[[package]]
+name = "use-molecule"
+version = "0.1.0"
+dependencies = [
+ "use-chemical-formula",
 ]
 
 [[package]]

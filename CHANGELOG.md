@@ -13,5 +13,8 @@
 - Added `use-compound` for named chemical compound identity primitives,
   lightweight classification labels, optional registry identifiers, and formula
   wrappers backed by `use-chemical-formula`.
+- Added `use-molecule` for discrete molecule identity primitives, optional
+  explicit atom lists, simple atom connections, formal charge, and molecule
+  classification labels backed by `use-chemical-formula`.
 - Added `use-isotope` for chemistry-facing isotope identity, count, and
   notation helpers, plus umbrella reexports through `use-chemistry`.

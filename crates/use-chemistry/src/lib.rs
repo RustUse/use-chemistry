@@ -8,6 +8,7 @@ pub use use_compound;
 pub use use_electron_shell;
 pub use use_element;
 pub use use_isotope;
+pub use use_molecule;
 pub use use_periodic_table;
 
 pub mod prelude;
@@ -15,8 +16,9 @@ pub mod prelude;
 #[cfg(test)]
 mod tests {
     use super::prelude::{
-        ChemicalFormula, Compound, CompoundKind, atomic_mass_by_symbol, atomic_number_from_symbol,
-        electron_shells, element_by_symbol, isotope_by_symbol, period_for_atomic_number,
+        ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind, atomic_mass_by_symbol,
+        atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
+        period_for_atomic_number,
     };
 
     #[test]
@@ -30,10 +32,17 @@ mod tests {
         )
         .expect("compound should be valid")
         .with_kind(CompoundKind::Molecular);
+        let water_molecule = Molecule::new(
+            "water",
+            ChemicalFormula::parse("H2O").expect("water should parse"),
+        )
+        .expect("molecule should be valid")
+        .with_kind(MoleculeKind::Neutral);
 
         assert_eq!(oxygen.atomic_number, 8);
         assert_eq!(water.name().as_str(), "water");
         assert_eq!(water.formula().to_string(), "H2O");
+        assert_eq!(water_molecule.formula().to_string(), "H2O");
         assert_eq!(counts.get("Ca"), Some(&1));
         assert_eq!(counts.get("O"), Some(&2));
         assert_eq!(counts.get("H"), Some(&2));

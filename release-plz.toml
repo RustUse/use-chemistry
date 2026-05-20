@@ -16,6 +16,7 @@ changelog_include = [
     "use-isotope",
     "use-chemical-formula",
     "use-compound",
+    "use-molecule",
     "use-atomic-number",
     "use-atomic-mass",
     "use-electron-shell",
@@ -28,6 +29,11 @@ version_group = "rustuse-chemistry"
 
 [[package]]
 name = "use-compound"
+release = true
+version_group = "rustuse-chemistry"
+
+[[package]]
+name = "use-molecule"
 release = true
 version_group = "rustuse-chemistry"
 

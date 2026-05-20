@@ -1,7 +1,7 @@
 .PHONY: help fmt check lint test test-minimal build doc examples audit deny sbom publish-dry-run dependent-publish-dry-run release-readiness verify
 
 PUBLISH_CRATES := use-element use-isotope use-chemical-formula use-periodic-table use-atomic-number use-atomic-mass use-electron-shell
-DEPENDENT_PUBLISH_CRATES := use-compound
+DEPENDENT_PUBLISH_CRATES := use-compound use-molecule
 SBOM_MANIFEST := crates/use-element/Cargo.toml
 
 help:

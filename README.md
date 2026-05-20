@@ -2,7 +2,7 @@
 
 Composable chemistry primitives for Rust.
 
-`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, compound identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
+`use-chemistry` starts with periodic-table primitives, element lookup, formula structures, compound identity, molecule identity, atomic numbers, atomic masses, simple electron shell helpers, and isotope identity helpers.
 
 It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use-wave`. The workspace stays one layer deep, direct crates stay independently useful, and the public APIs stay small, explicit, documented, and dependency-light.
 
@@ -12,6 +12,7 @@ It is a sibling RustUse set beside `use-math`, `use-color`, `use-text`, and `use
 - `use-element`: basic chemical element primitives and lookup helpers
 - `use-chemical-formula`: structural chemical formula primitives and lightweight parsing
 - `use-compound`: named chemical compound identity primitives and lightweight descriptors
+- `use-molecule`: discrete molecule identity primitives with optional atom-level structure
 - `use-periodic-table`: periodic-table lookup and conservative classification helpers
 - `use-isotope`: chemistry-facing isotope identity and notation helpers
 - `use-atomic-number`: atomic-number validation and neutral-atom helpers
@@ -25,8 +26,8 @@ focused crates and provides a `prelude` with the most common chemistry helpers.
 
 ```rust
 use use_chemistry::prelude::{
-	ChemicalFormula, Compound, CompoundKind, atomic_mass_by_symbol, atomic_number_from_symbol,
-	electron_shells, element_by_symbol, isotope_by_symbol,
+	ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind, atomic_mass_by_symbol,
+	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -35,9 +36,13 @@ let calcium_hydroxide = ChemicalFormula::parse("Ca(OH)2").unwrap();
 let water = Compound::new("water", ChemicalFormula::parse("H2O").unwrap())
 	.unwrap()
 	.with_kind(CompoundKind::Molecular);
+let water_molecule = Molecule::new("water", ChemicalFormula::parse("H2O").unwrap())
+	.unwrap()
+	.with_kind(MoleculeKind::Neutral);
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(water.formula().to_string(), "H2O");
+assert_eq!(water_molecule.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
 assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
 assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
@@ -103,6 +108,26 @@ assert_eq!(glucose.formula().to_string(), "C6H12O6");
 assert_eq!(glucose.common_name().map(|name| name.as_str()), Some("dextrose"));
 ```
 
+### Molecule identity
+
+```rust
+use use_chemical_formula::ChemicalFormula;
+use use_molecule::{MolecularAtom, Molecule, MoleculeKind};
+
+let water = Molecule::builder("water")
+	.formula(ChemicalFormula::parse("H2O").unwrap())
+	.atom(MolecularAtom::new("O").unwrap())
+	.atom(MolecularAtom::new("H").unwrap())
+	.atom(MolecularAtom::new("H").unwrap())
+	.kind(MoleculeKind::Neutral)
+	.build()
+	.unwrap();
+
+assert_eq!(water.name().as_str(), "water");
+assert_eq!(water.formula().to_string(), "H2O");
+assert_eq!(water.atom_count(), 3);
+```
+
 ### Period and group helpers
 
 ```rust
@@ -143,4 +168,4 @@ assert_eq!(isotope_neutron_count(6, 14), Some(8));
 
 ## Status
 
-This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound databases, naming engines, molecular geometry, bonding, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, and broader framework-style abstractions.
+This focused v0.1 workspace keeps to small, static, auditable chemistry primitives. It intentionally stops short of compound or molecule databases, naming engines, molecular geometry, force fields, bonding, reaction balancing, stoichiometry, isotope abundance/mass/decay tables, thermochemistry, chemical file-format parsing, and broader framework-style abstractions.

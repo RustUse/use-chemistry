@@ -4,8 +4,8 @@ Composable chemistry primitives for `RustUse`.
 
 `use-chemistry` is the thin umbrella crate for the `RustUse` chemistry workspace. Use it when you
 want the common prelude and reexports from `use-element`, `use-atomic-number`,
-`use-atomic-mass`, `use-chemical-formula`, `use-compound`, `use-electron-shell`,
-`use-isotope`, and `use-periodic-table` in one dependency.
+`use-atomic-mass`, `use-chemical-formula`, `use-compound`, `use-molecule`,
+`use-electron-shell`, `use-isotope`, and `use-periodic-table` in one dependency.
 
 ## Reexports
 
@@ -14,6 +14,7 @@ want the common prelude and reexports from `use-element`, `use-atomic-number`,
 - `use_atomic_mass`
 - `use_chemical_formula`
 - `use_compound`
+- `use_molecule`
 - `use_electron_shell`
 - `use_isotope`
 - `use_periodic_table`
@@ -22,8 +23,8 @@ want the common prelude and reexports from `use-element`, `use-atomic-number`,
 
 ```rust
 use use_chemistry::prelude::{
-	ChemicalFormula, Compound, CompoundKind, atomic_mass_by_symbol, atomic_number_from_symbol,
-	electron_shells, element_by_symbol, isotope_by_symbol,
+	ChemicalFormula, Compound, CompoundKind, Molecule, MoleculeKind, atomic_mass_by_symbol,
+	atomic_number_from_symbol, electron_shells, element_by_symbol, isotope_by_symbol,
 };
 
 let oxygen = element_by_symbol("O").unwrap();
@@ -32,9 +33,13 @@ let calcium_hydroxide = ChemicalFormula::parse("Ca(OH)2").unwrap();
 let water = Compound::new("water", ChemicalFormula::parse("H2O").unwrap())
 	.unwrap()
 	.with_kind(CompoundKind::Molecular);
+let water_molecule = Molecule::new("water", ChemicalFormula::parse("H2O").unwrap())
+	.unwrap()
+	.with_kind(MoleculeKind::Neutral);
 
 assert_eq!(oxygen.atomic_number, 8);
 assert_eq!(water.formula().to_string(), "H2O");
+assert_eq!(water_molecule.formula().to_string(), "H2O");
 assert_eq!(atomic_number_from_symbol("Na"), Some(11));
 assert!((atomic_mass_by_symbol("O").unwrap() - 15.999).abs() < 0.01);
 assert_eq!(electron_shells(11), Some(vec![2, 8, 1]));
