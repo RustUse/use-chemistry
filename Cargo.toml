@@ -28,24 +28,24 @@ publish = false
 readme = "README.md"
 repository = "https://github.com/RustUse/use-chemistry"
 rust-version = "1.95.0"
-version = "0.1.0"
+version = "0.1.1"
 
 [workspace.dependencies]
-use-atomic-mass = { version = "0.1.0", path = "crates/use-atomic-mass" }
-use-atomic-number = { version = "0.1.0", path = "crates/use-atomic-number" }
-use-bond = { version = "0.1.0", path = "crates/use-bond" }
-use-chemical-formula = { version = "0.1.0", path = "crates/use-chemical-formula" }
-use-molar-mass = { version = "0.1.0", path = "crates/use-molar-mass" }
-use-stoichiometry = { version = "0.1.0", path = "crates/use-stoichiometry" }
-use-reaction = { version = "0.1.0", path = "crates/use-reaction" }
-use-oxidation-state = { version = "0.1.0", path = "crates/use-oxidation-state" }
-use-ion = { version = "0.1.0", path = "crates/use-ion" }
-use-compound = { version = "0.1.0", path = "crates/use-compound" }
-use-molecule = { version = "0.1.0", path = "crates/use-molecule" }
-use-electron-shell = { version = "0.1.0", path = "crates/use-electron-shell" }
-use-element = { version = "0.1.0", path = "crates/use-element" }
-use-isotope = { version = "0.1.0", path = "crates/use-isotope" }
-use-periodic-table = { version = "0.1.0", path = "crates/use-periodic-table" }
+use-atomic-mass = { version = "0.1.1", path = "crates/use-atomic-mass" }
+use-atomic-number = { version = "0.1.1", path = "crates/use-atomic-number" }
+use-bond = { version = "0.1.1", path = "crates/use-bond" }
+use-chemical-formula = { version = "0.1.1", path = "crates/use-chemical-formula" }
+use-molar-mass = { version = "0.1.1", path = "crates/use-molar-mass" }
+use-stoichiometry = { version = "0.1.1", path = "crates/use-stoichiometry" }
+use-reaction = { version = "0.1.1", path = "crates/use-reaction" }
+use-oxidation-state = { version = "0.1.1", path = "crates/use-oxidation-state" }
+use-ion = { version = "0.1.1", path = "crates/use-ion" }
+use-compound = { version = "0.1.1", path = "crates/use-compound" }
+use-molecule = { version = "0.1.1", path = "crates/use-molecule" }
+use-electron-shell = { version = "0.1.1", path = "crates/use-electron-shell" }
+use-element = { version = "0.1.1", path = "crates/use-element" }
+use-isotope = { version = "0.1.1", path = "crates/use-isotope" }
+use-periodic-table = { version = "0.1.1", path = "crates/use-periodic-table" }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

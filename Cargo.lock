@@ -4,29 +4,29 @@ version = 4
 
 [[package]]
 name = "use-atomic-mass"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-element",
 ]
 
 [[package]]
 name = "use-atomic-number"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-element",
 ]
 
 [[package]]
 name = "use-bond"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "use-chemical-formula"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "use-chemistry"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-atomic-mass",
  "use-atomic-number",
@@ -47,39 +47,39 @@ dependencies = [
 
 [[package]]
 name = "use-compound"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-chemical-formula",
 ]
 
 [[package]]
 name = "use-electron-shell"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-element",
 ]
 
 [[package]]
 name = "use-element"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "use-ion"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-chemical-formula",
 ]
 
 [[package]]
 name = "use-isotope"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-element",
 ]
 
 [[package]]
 name = "use-molar-mass"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-atomic-mass",
  "use-chemical-formula",
@@ -87,25 +87,25 @@ dependencies = [
 
 [[package]]
 name = "use-molecule"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-chemical-formula",
 ]
 
 [[package]]
 name = "use-oxidation-state"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "use-periodic-table"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-element",
 ]
 
 [[package]]
 name = "use-reaction"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-chemical-formula",
  "use-stoichiometry",
@@ -113,7 +113,7 @@ dependencies = [
 
 [[package]]
 name = "use-stoichiometry"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "use-chemical-formula",
 ]
