@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.1.1](https://github.com/RustUse/use-chemistry/compare/use-element-v0.1.0...use-element-v0.1.1) - 2026-05-24
+
+### Changed
+
+- Add CI workflows, dev tools, and infra configs
+- Add use-isotope crate and integrate into workspace
+
 ### Added
 
 - Added `release-plz` configuration and follow-up release workflows for the

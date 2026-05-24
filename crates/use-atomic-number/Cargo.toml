@@ -18,4 +18,4 @@ categories = ["science", "data-structures"]
 all-features = true
 
 [dependencies]
-use-element = { version = "0.1.0", path = "../use-element" }
+use-element = { version = "0.1.1", path = "../use-element" }
